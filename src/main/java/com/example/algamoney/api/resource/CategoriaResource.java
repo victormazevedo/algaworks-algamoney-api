@@ -38,4 +38,9 @@ public class CategoriaResource {
 
         return ResponseEntity.created(uri).body(categoriaSalva);
     }
+
+    @GetMapping("/{codigo}")
+    public Categoria buscarPeloCodigo(@PathVariable Long codigo) {
+        return categoriaRepository.findOne(codigo);
+    }
 }
