@@ -7,9 +7,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import java.util.List;
 
 //ResponseEntityExceptionHandler ja vem com varios metodos uteis para capturar as exceptions
 @ControllerAdvice //observa toda a aplicação em busca de capturar excpetions
@@ -25,6 +28,15 @@ public class AlgamoneyExceptionHandler extends ResponseEntityExceptionHandler {
         String mensagemDesenvolvedor = ex.getCause().toString();
         return handleExceptionInternal(ex, new Erro(mensagemUsuario, mensagemDesenvolvedor), headers, HttpStatus.BAD_REQUEST, request);
     }
+
+//    @Override
+//    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+//        return handleExceptionInternal(ex, body, HttpStatus.BAD_REQUEST, request);
+//    }
+//
+//    private List<Erro> criarListaDeErros() {
+//
+//    }
 
     public static class Erro {
 

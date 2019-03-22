@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class CategoriaResource {
 
     //if ok, 201 Created
     @PostMapping
-    public ResponseEntity<Categoria> criar(@RequestBody Categoria categoria, HttpServletResponse response) {
+    public ResponseEntity<Categoria> criar(@Valid @RequestBody Categoria categoria, HttpServletResponse response) {
         Categoria categoriaSalva = categoriaRepository.save(categoria);
         //pega a partir da requisição atual, adiciona o codigo e adiciona o codigo na URI
         //por padrao, o REST pede para termos uma location no header após dar um POST informando
