@@ -24,7 +24,7 @@ public class PessoaResource {
     private ApplicationEventPublisher publisher;
 
     @PostMapping
-    private ResponseEntity<Pessoa> cadastrarPessoa(@Valid @RequestBody Pessoa pessoa, HttpServletResponse response) {
+    public ResponseEntity<Pessoa> cadastrarPessoa(@Valid @RequestBody Pessoa pessoa, HttpServletResponse response) {
         Pessoa pessoaSalva = pessoaRepository.save(pessoa);
 
         publisher.publishEvent(new RecursoCriadoEvent(this, response, pessoaSalva.getCodigo()));
@@ -32,9 +32,15 @@ public class PessoaResource {
     }
 
     @GetMapping("/{codigo}")
-    private ResponseEntity<Pessoa> buscarPeloCodigo(@PathVariable Long codigo) {
+    public ResponseEntity<Pessoa> buscarPeloCodigo(@PathVariable Long codigo) {
         Pessoa resultado = pessoaRepository.findOne(codigo);
 
         return resultado != null ? ResponseEntity.ok(resultado) : ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("/{codigo}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)//204
+    public void remover(@PathVariable Long codigo) {
+        pessoaRepository.delete(codigo);
     }
 }
