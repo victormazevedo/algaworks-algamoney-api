@@ -3,7 +3,7 @@ package com.example.algamoney.api.resource;
 import com.example.algamoney.api.event.RecursoCriadoEvent;
 import com.example.algamoney.api.model.Pessoa;
 import com.example.algamoney.api.repository.PessoaRepository;
-import org.springframework.beans.BeanUtils;
+import com.example.algamoney.api.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
@@ -23,6 +23,9 @@ public class PessoaResource {
     //publicador de eventos de aplicação
     @Autowired
     private ApplicationEventPublisher publisher;
+
+    @Autowired
+    private PessoaService pessoaService;
 
     @PostMapping
     public ResponseEntity<Pessoa> cadastrarPessoa(@Valid @RequestBody Pessoa pessoa, HttpServletResponse response) {
@@ -47,9 +50,6 @@ public class PessoaResource {
 
     @PutMapping("{codigo}")
     public ResponseEntity<Pessoa> atualizar(@PathVariable Long codigo, @Valid @RequestBody Pessoa pessoa) {
-        Pessoa pessoaSalva = pessoaRepository.findOne(codigo);
-        BeanUtils.copyProperties(pessoa, pessoaSalva, "codigo");
-        pessoaRepository.save(pessoaSalva);
-        return ResponseEntity.ok(pessoaSalva);
+        return ResponseEntity.ok(pessoaService.atualizar(codigo, pessoa));
     }
 }
