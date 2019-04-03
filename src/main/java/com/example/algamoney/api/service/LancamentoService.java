@@ -20,4 +20,8 @@ public class LancamentoService {
     public Lancamento buscarLancamento(Long codigo) {
         return lancamentoRepository.findOne(codigo);
     }
+
+    public Lancamento cadastrarLancamento(Lancamento lancamento) {
+        return lancamentoRepository.save(lancamento);
+    }
 }
