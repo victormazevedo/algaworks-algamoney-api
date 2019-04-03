@@ -13,7 +13,11 @@ public class LancamentoService {
     @Autowired
     private LancamentoRepository lancamentoRepository;
 
-    public List<Lancamento> mostrarTodosOsLancamentos() {
+    public List<Lancamento> buscarTodosOsLancamentos() {
         return lancamentoRepository.findAll();
+    }
+
+    public Lancamento buscarLancamento(Long codigo) {
+        return lancamentoRepository.findOne(codigo);
     }
 }
