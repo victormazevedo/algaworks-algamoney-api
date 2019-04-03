@@ -19,7 +19,7 @@ public class RecursoCriadoListener implements ApplicationListener<RecursoCriadoE
 
         adicionarHeaderLocation(response, codigo);
     }
-
+    //recurso para adicionar o location no header
     private void adicionarHeaderLocation(HttpServletResponse response, Long codigo) {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{codigo}")
                 .buildAndExpand(codigo).toUri();
